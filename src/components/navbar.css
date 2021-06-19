@@ -1,0 +1,10 @@
+nav{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(247,144,18)
+}
+
+.navbar a {
+    margin: 20px;
+    text-decoration: none;
+}
