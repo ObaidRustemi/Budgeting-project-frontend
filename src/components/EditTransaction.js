@@ -27,15 +27,14 @@ const EditTransaction = ({ updateTransaction }) => {
   };
 
   useEffect(() => {
-      fetchTransactions()
-  },[])
+    fetchTransactions();
+  }, []);
 
-  const handleSubmit =  async (e) => {
-      e.preventDefault()
-      await updateTransaction(transaction, index)
-      history.push(`/transactions/${index}`)
-
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await updateTransaction(transaction, index);
+    history.push(`/transactions/${index}`);
+  };
 
   const { date, name, amount, from } = transaction;
   return (

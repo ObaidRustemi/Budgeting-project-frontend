@@ -12,8 +12,15 @@ import EditTransaction from "./components/EditTransaction";
 const API = apiURL();
 function App() {
   const [transactions, setTransactions] = useState([]);
+  let [acctTotal, setAcctTotal] = useState();
 
-  
+  const calculateTotal = () => {
+    let newTotal = transactions.reduce((acc, currEl) => {
+      return acc + Number(currEl.amount);
+    }, 0);
+    console.log(newTotal);
+    setAcctTotal(newTotal);
+  };
 
   const fetchTransactions = async () => {
     try {
@@ -49,14 +56,19 @@ function App() {
       await axios.delete(`${API}/transactions/${index}`);
       const prevState = [...transactions];
       prevState.splice(index, 1);
-      setTransactions(prevState)
+      setTransactions(prevState);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
     fetchTransactions();
+    
   }, []);
+
+  useEffect(() => {
+    calculateTotal();
+  },[transactions])
 
   return (
     <div className="App">
@@ -73,7 +85,7 @@ function App() {
             <EditTransaction updateTransaction={updateTransaction} />
           </Route>
           <Route path={"/transactions"}>
-            <Transactions transactions={transactions} />
+            <Transactions acctTotal={acctTotal} transactions={transactions} />
           </Route>
         </Switch>
       </Router>

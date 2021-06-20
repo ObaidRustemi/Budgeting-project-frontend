@@ -2,19 +2,18 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { apiURL } from "../util/apiURL";
-import "./transactionDetails.css"
+import "./transactionDetails.css";
 const API = apiURL();
 
-const TransactionDetails = ({deleteTransaction}) => {
+const TransactionDetails = ({ deleteTransaction }) => {
   const [transaction, setTransaction] = useState([]);
   let { index } = useParams();
   let history = useHistory();
 
   const fetchTransactions = async () => {
     try {
-      //   const res = await axios.get(`${API}/transactions/${index}`);
       const res = await axios.get(`${API}/transactions/${index}`);
-     
+
       setTransaction(res.data);
     } catch (err) {
       console.log(err);
@@ -22,13 +21,12 @@ const TransactionDetails = ({deleteTransaction}) => {
   };
 
   const handleDelete = () => {
-      deleteTransaction(index)
-      history.push('/transactions')
-  }
+    deleteTransaction(index);
+    history.push("/transactions");
+  };
 
   useEffect(() => {
     fetchTransactions();
-    console.log("useEffectUSED");
   }, []);
 
   return (
