@@ -7,11 +7,13 @@ import { apiURL } from "./util/apiURL";
 import NavBar from "./components/NavBar";
 import NewTransactionForm from "./components/NewTransactionForm";
 import TransactionDetails from "./components/TransactionDetails";
+import EditTransaction from "./components/EditTransaction";
 
 const API = apiURL();
 function App() {
   const [transactions, setTransactions] = useState([]);
-  const [acctTotal, setAcctTotal] = useState(300987.7867);
+
+  
 
   const fetchTransactions = async () => {
     try {
@@ -23,15 +25,34 @@ function App() {
   };
 
   const addTransaction = async (newTransaction) => {
-    debugger
     try {
-let res = await axios.post(`${API}/transactions`, newTransaction)
-setTransactions((prevTransactions) => [...prevTransactions, res.data])
-    } catch (err){
-      console.log(err)
+      let res = await axios.post(`${API}/transactions`, newTransaction);
+      setTransactions((prevTransactions) => [...prevTransactions, res.data]);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
+  const updateTransaction = async (updatedTransaction, index) => {
+    try {
+      await axios.put(`${API}/transactions/${index}`, updatedTransaction);
+      const newTransactions = [...transactions];
+      newTransactions[index] = updatedTransaction;
+      setTransactions(newTransactions);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteTransaction = async (index) => {
+    try {
+      await axios.delete(`${API}/transactions/${index}`);
+      const prevState = [...transactions];
+      prevState.splice(index, 1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     fetchTransactions();
   }, []);
@@ -42,13 +63,16 @@ setTransactions((prevTransactions) => [...prevTransactions, res.data])
         <NavBar />
         <Switch>
           <Route path={"/transactions/new"}>
-            <NewTransactionForm addTransaction={addTransaction}/>
+            <NewTransactionForm addTransaction={addTransaction} />
           </Route>
           <Route exact path={"/transactions/:index"}>
-            <TransactionDetails acctTotal={acctTotal} />
+            <TransactionDetails deleteTransaction={deleteTransaction} />
           </Route>
-          <Route  path={"/transactions"}>
-            <Transactions transactions={transactions} acctTotal={acctTotal} />
+          <Route exact path={"/transactions/:index/edit"}>
+            <EditTransaction updateTransaction={updateTransaction} />
+          </Route>
+          <Route path={"/transactions"}>
+            <Transactions transactions={transactions} />
           </Route>
         </Switch>
       </Router>

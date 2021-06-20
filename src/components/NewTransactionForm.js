@@ -25,12 +25,16 @@ const NewTransactionForm = ({ addTransaction }) => {
   const { date, name, amount, from } = transaction;
   return (
     <div>
-      <h3>New Transaction Component</h3>
+      <h3>New Transaction</h3>
       <form className="form" onSubmit={handleSubmit}> 
         <label className="input-label" htmlFor="date">Date</label>
-        <input className="input-field" onChange={handleInputChange} type="text" id="date" value={date} placeholder="date" />
+        <input className="input-field" onChange={handleInputChange} type="date" id="date" value={date} placeholder="date" />
         <label className="input-label" htmlFor="name">Name</label>
         <input className="input-field" onChange={handleInputChange} type="text" placeholder="name" id="name" value={name} />
+        <label className="input-label" htmlFor="name">Amount</label>
+        <input className="input-field" onChange={handleInputChange} type="number" placeholder="amount" id="amount" value={amount} />
+        <label className="input-label" htmlFor="name">From</label>
+        <input className="input-field" onChange={handleInputChange} type="text" placeholder="from" id="from" value={from} />
         <button type="submit">CREATE NEW ITEM</button>
       </form>
     </div>
