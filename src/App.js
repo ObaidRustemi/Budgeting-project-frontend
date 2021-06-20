@@ -49,6 +49,7 @@ function App() {
       await axios.delete(`${API}/transactions/${index}`);
       const prevState = [...transactions];
       prevState.splice(index, 1);
+      setTransactions(prevState)
     } catch (err) {
       console.log(err);
     }

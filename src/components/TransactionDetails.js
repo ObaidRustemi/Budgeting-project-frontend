@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { apiURL } from "../util/apiURL";
+import "./transactionDetails.css"
 const API = apiURL();
 
 const TransactionDetails = ({deleteTransaction}) => {
@@ -22,7 +23,7 @@ const TransactionDetails = ({deleteTransaction}) => {
 
   const handleDelete = () => {
       deleteTransaction(index)
-      history.push("/transactions")
+      history.push('/transactions')
   }
 
   useEffect(() => {
