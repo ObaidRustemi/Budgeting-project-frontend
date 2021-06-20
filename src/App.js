@@ -5,11 +5,13 @@ import Transactions from "./components/Transactions";
 import "./App.css";
 import { apiURL } from "./util/apiURL";
 import NavBar from "./components/NavBar";
+import NewTransactionForm from "./components/NewTransactionForm";
+import TransactionDetails from "./components/TransactionDetails";
 
 const API = apiURL();
 function App() {
   const [transactions, setTransactions] = useState([]);
-  const [acctTotal, setAcctTotal] = useState(0);
+  const [acctTotal, setAcctTotal] = useState(300987.7867);
 
   const fetchTransactions = async () => {
     try {
@@ -20,16 +22,32 @@ function App() {
     }
   };
 
+  const addTransaction = async (newTransaction) => {
+    debugger
+    try {
+let res = await axios.post(`${API}/transactions`, newTransaction)
+setTransactions((prevTransactions) => [...prevTransactions, res.data])
+    } catch (err){
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
-    fetchTransactions()
-  },[])
+    fetchTransactions();
+  }, []);
 
   return (
     <div className="App">
       <Router>
         <NavBar />
         <Switch>
-          <Route path={"/transactions"}>
+          <Route path={"/transactions/new"}>
+            <NewTransactionForm addTransaction={addTransaction}/>
+          </Route>
+          <Route exact path={"/transactions/:index"}>
+            <TransactionDetails acctTotal={acctTotal} />
+          </Route>
+          <Route  path={"/transactions"}>
             <Transactions transactions={transactions} acctTotal={acctTotal} />
           </Route>
         </Switch>
