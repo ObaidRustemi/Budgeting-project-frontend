@@ -5,6 +5,6 @@ export const apiURL = () => {
     ) {
       return "http://localhost:3001";
     }
-    return "https://obaid-express-backend-project.herokuapp.com/";
+    return "https://obaid-express-backend-project.herokuapp.com";
   };
   
