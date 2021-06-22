@@ -13,7 +13,6 @@ const TransactionDetails = ({ deleteTransaction }) => {
   const fetchTransactions = async () => {
     try {
       const res = await axios.get(`${API}/transactions/${index}`);
-
       setTransaction(res.data);
     } catch (err) {
       console.log(err);

@@ -18,7 +18,6 @@ function App() {
     let newTotal = transactions.reduce((acc, currEl) => {
       return acc + Number(currEl.amount);
     }, 0);
-    console.log(newTotal);
     setAcctTotal(newTotal);
   };
 
@@ -63,12 +62,11 @@ function App() {
   };
   useEffect(() => {
     fetchTransactions();
-    
   }, []);
 
   useEffect(() => {
     calculateTotal();
-  },[transactions])
+  }, [transactions]);
 
   return (
     <div className="App">

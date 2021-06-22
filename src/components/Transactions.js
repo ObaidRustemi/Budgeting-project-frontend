@@ -1,8 +1,7 @@
 import Transaction from "./Transaction";
-import { useState } from "react";
 import "./transactions.css";
 
-const Transactions = ({ transactions,acctTotal, calculateTotal }) => {
+const Transactions = ({ transactions, acctTotal, calculateTotal }) => {
   let acctBalance = acctTotal;
 
   return (
@@ -15,7 +14,6 @@ const Transactions = ({ transactions,acctTotal, calculateTotal }) => {
           return <Transaction {...transaction} index={index} />;
         })}
       </ul>
-  
     </div>
   );
 };
