@@ -73,6 +73,9 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
+          <Route exact path={"/"}>
+            <h1>Welcome to OBI-Wan's Budget App!</h1>
+          </Route>
           <Route path={"/transactions/new"}>
             <NewTransactionForm addTransaction={addTransaction} />
           </Route>
